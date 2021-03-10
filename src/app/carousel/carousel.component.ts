@@ -20,6 +20,8 @@ export class CarouselComponent implements OnInit, AfterViewInit {
 
   @Input()
   customScrollableBlock: HTMLElement;
+  @Input()
+  scrollItemsCount = 3;
 
   availableToScroll = of({ left: false, right: false });
   constructor(private elementRef: ElementRef) {}
@@ -33,14 +35,16 @@ export class CarouselComponent implements OnInit, AfterViewInit {
       this.customScrollableBlock,
       "scroll"
     ).pipe(
-      startWith(undefined),
-      map(() => ({
-        left: this.customScrollableBlock.scrollLeft > 0,
-        right:
-          this.customScrollableBlock.scrollLeft +
-            this.customScrollableBlock.offsetWidth <
-          this.customScrollableBlock.scrollWidth
-      }))
+      map(event => event.target as HTMLElement),
+      startWith(this.customScrollableBlock ?? this.elementRef.nativeElement),
+      map(scrolledElement => {
+        return {
+          left: scrolledElement.scrollLeft > 0,
+          right:
+            scrolledElement.scrollLeft + scrolledElement.offsetWidth <
+            scrolledElement.scrollWidth
+        };
+      })
     );
   }
 
@@ -49,11 +53,11 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   }
 
   goLeft() {
-    this.scrollBy(-3);
+    this.scrollBy(-1 * this.scrollItemsCount);
   }
 
   goRight() {
-    this.scrollBy(3);
+    this.scrollBy(this.scrollItemsCount);
   }
 
   private scrollBy(scrollDirection: number): void {
