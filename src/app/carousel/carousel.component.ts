@@ -3,10 +3,9 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild
 } from "@angular/core";
-import { fromEvent, Observable, of } from "rxjs";
+import { fromEvent, of } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 
 @Component({
@@ -14,21 +13,21 @@ import { map, startWith } from "rxjs/operators";
   templateUrl: "./carousel.component.html",
   styleUrls: ["./carousel.component.css"]
 })
-export class CarouselComponent implements OnInit, AfterViewInit {
+export class CarouselComponent implements AfterViewInit {
   @ViewChild("scrollableBlock", { read: ElementRef, static: true })
   private scrollableBlock: ElementRef;
 
   @Input()
   customScrollableBlock: HTMLElement;
   @Input()
-  scrollItemsCount = 3;
+  scrollItemsCount: number | 'auto' = 'auto';
+  @Input()
+  itemsMargin = 16;
 
   availableToScroll = of({ left: false, right: false });
   constructor(private elementRef: ElementRef) {}
 
   private itemWidth: number | undefined;
-
-  ngOnInit() {}
 
   ngAfterViewInit() {
     this.availableToScroll = fromEvent(
@@ -53,18 +52,22 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   }
 
   goLeft() {
-    this.scrollBy(-1 * this.scrollItemsCount);
+    this.scroll('left');
   }
 
   goRight() {
-    this.scrollBy(this.scrollItemsCount);
+    this.scroll('right');
   }
 
-  private scrollBy(scrollDirection: number): void {
+  private scroll(scrollDirection: 'left' | 'right'): void {
     if (this.itemWidth) {
       const element =
         this.customScrollableBlock || this.scrollableBlock.nativeElement;
-      const scrollByX = scrollDirection * this.itemWidth - 32;
+        // TODO how to calc scroll width in auto mode
+      const visibleItems = Math.floor(element.offsetWidth / this.itemWidth);
+      const marginBetweenVisibleItems = (visibleItems * this.itemsMargin);
+      const scrollXDelta = (this.scrollItemsCount !== 'auto' ? this.scrollItemsCount : visibleItems) * this.itemWidth - marginBetweenVisibleItems;
+      const scrollByX = (scrollDirection === 'left' ? -1 : 1) * scrollXDelta;
       try {
         element.scrollBy({ left: scrollByX, behavior: "smooth" });
       } catch (_e) {

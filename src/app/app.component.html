@@ -1,5 +1,5 @@
 <div class="root">
-  <app-carousel [scrollItemsCount]="3" [customScrollableBlock]="scrollableBlock">
+  <app-carousel [customScrollableBlock]="scrollableBlock" [itemsMargin]="16" [scrollItemsCount]="3">
     <div class="carousel" #scrollableBlock>
       <div class="item" *ngFor="let item of items" appCarouselItem>
         {{ item.name }}
