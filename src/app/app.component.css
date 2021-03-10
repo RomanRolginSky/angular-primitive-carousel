@@ -1,5 +1,6 @@
 .root {
-  width: 590px;
+  width: calc(100% - 130px);
+  margin: 0 64px
 }
 
 .carousel {
