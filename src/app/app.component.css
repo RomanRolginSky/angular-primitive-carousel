@@ -1,0 +1,22 @@
+.root {
+  width: 590px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.item {
+  box-sizing: border-box;
+  width: 148px;
+  height: 170px;
+  flex-shrink: 0;
+  border: 1px solid rgb(47, 126, 196);
+  scroll-snap-align: center;
+}
+
+.item + .item {
+  margin-left: 16px;
+}

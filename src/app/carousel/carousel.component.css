@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.scrollable {
+  position: relative;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.scrollable.-no-scrollable {
+  overflow: unset;
+}
+
+.left-button,
+.right-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.left-button {
+  left: 0;
+}
+
+.right-button {
+  right: 0;
+}
