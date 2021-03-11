@@ -19,12 +19,17 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
+  transition: all 0.3s ease-in;
+}
+
+.-invisible {
+  opacity: 0;
 }
 
 .left-button {
-  left: 0;
+  left: -16px;
 }
 
 .right-button {
-  right: 0;
+  right: -16px;
 }

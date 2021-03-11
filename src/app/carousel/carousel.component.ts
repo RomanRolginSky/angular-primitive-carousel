@@ -6,7 +6,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { fromEvent, of } from "rxjs";
-import { map, startWith } from "rxjs/operators";
+import { map, startWith, throttleTime } from "rxjs/operators";
 
 @Component({
   selector: "app-carousel",
@@ -34,6 +34,7 @@ export class CarouselComponent implements AfterViewInit {
       this.customScrollableBlock,
       "scroll"
     ).pipe(
+      throttleTime(100, undefined, { leading: true, trailing: true }),
       map(event => event.target as HTMLElement),
       startWith(this.customScrollableBlock ?? this.elementRef.nativeElement),
       map(scrolledElement => {
@@ -49,6 +50,7 @@ export class CarouselComponent implements AfterViewInit {
 
   registerItem(item: ElementRef) {
     this.itemWidth = item.nativeElement.offsetWidth;
+    console.log(this.itemWidth);
   }
 
   goLeft() {
@@ -65,8 +67,10 @@ export class CarouselComponent implements AfterViewInit {
         this.customScrollableBlock || this.scrollableBlock.nativeElement;
         // TODO how to calc scroll width in auto mode
       const visibleItems = Math.floor(element.offsetWidth / this.itemWidth);
+      console.log(visibleItems);
       const marginBetweenVisibleItems = (visibleItems * this.itemsMargin);
-      const scrollXDelta = (this.scrollItemsCount !== 'auto' ? this.scrollItemsCount : visibleItems) * this.itemWidth - marginBetweenVisibleItems;
+      const scrollXDelta = (this.scrollItemsCount !== 'auto' ? this.scrollItemsCount : visibleItems) * this.itemWidth + marginBetweenVisibleItems;
+      console.log(scrollXDelta);
       const scrollByX = (scrollDirection === 'left' ? -1 : 1) * scrollXDelta;
       try {
         element.scrollBy({ left: scrollByX, behavior: "smooth" });

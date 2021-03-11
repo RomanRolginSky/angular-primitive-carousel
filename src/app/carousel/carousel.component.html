@@ -1,6 +1,6 @@
 <ng-container *ngIf="{ visibleScroll: availableToScroll | async } as model">
-  <button *ngIf="model.visibleScroll?.left" class="left-button" (click)="goLeft()"><</button>
-  <button *ngIf="model.visibleScroll?.right" class="right-button" (click)="goRight()">></button>
+  <button class="left-button" (click)="goLeft()" [class.-invisible]="!model.visibleScroll?.left"><</button>
+  <button class="right-button" (click)="goRight()" [class.-invisible]="!model.visibleScroll?.right">></button>
 </ng-container>
 <div class="scrollable" #scrollableBlock [class.-no-scrollable]="customScrollableBlock">
   <ng-content></ng-content>

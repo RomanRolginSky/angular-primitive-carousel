@@ -7,11 +7,12 @@
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  outline: 1px solid rgb(148, 16, 16)
 }
 
 .item {
   box-sizing: border-box;
-  width: 148px;
+  width: 150px;
   height: 170px;
   flex-shrink: 0;
   border: 1px solid rgb(47, 126, 196);
