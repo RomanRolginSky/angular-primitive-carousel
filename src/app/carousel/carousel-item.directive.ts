@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, Optional } from "@angular/core";
-import { CarouselComponent } from "./carousel/carousel.component";
+import { CarouselComponent } from "./carousel.component";
 
 @Directive({
   selector: "[appCarouselItem]"

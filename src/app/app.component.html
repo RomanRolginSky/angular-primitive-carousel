@@ -1,9 +1,7 @@
-<div class="root">
-  <app-carousel [customScrollableBlock]="scrollableBlock" [itemsMargin]="16">
-    <div class="carousel" #scrollableBlock>
-      <div class="item" *ngFor="let item of items" appCarouselItem>
-        {{ item.name }}
-      </div>
-    </div>
-  </app-carousel>
-</div>
+<nav>
+  <a [routerLink]="'first'">First</a>
+  <a [routerLink]="'second'">Second</a>
+  <a [routerLink]="'third'">Third</a>
+</nav>
+
+<router-outlet></router-outlet>

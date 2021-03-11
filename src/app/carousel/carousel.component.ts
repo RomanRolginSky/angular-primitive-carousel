@@ -1,5 +1,7 @@
+import { ChangeDetectionStrategy } from "@angular/compiler/src/compiler_facade_interface";
 import {
   AfterViewInit,
+ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -25,7 +27,7 @@ export class CarouselComponent implements AfterViewInit {
   itemsMargin = 16;
 
   availableToScroll = of({ left: false, right: false });
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef, private cdr: ChangeDetectorRef) {}
 
   private itemWidth: number | undefined;
 
@@ -46,11 +48,11 @@ export class CarouselComponent implements AfterViewInit {
         };
       })
     );
+    this.cdr.detectChanges();
   }
 
   registerItem(item: ElementRef) {
     this.itemWidth = item.nativeElement.offsetWidth;
-    console.log(this.itemWidth);
   }
 
   goLeft() {
@@ -67,10 +69,8 @@ export class CarouselComponent implements AfterViewInit {
         this.customScrollableBlock || this.scrollableBlock.nativeElement;
         // TODO how to calc scroll width in auto mode
       const visibleItems = Math.floor(element.offsetWidth / this.itemWidth);
-      console.log(visibleItems);
       const marginBetweenVisibleItems = (visibleItems * this.itemsMargin);
       const scrollXDelta = (this.scrollItemsCount !== 'auto' ? this.scrollItemsCount : visibleItems) * this.itemWidth + marginBetweenVisibleItems;
-      console.log(scrollXDelta);
       const scrollByX = (scrollDirection === 'left' ? -1 : 1) * scrollXDelta;
       try {
         element.scrollBy({ left: scrollByX, behavior: "smooth" });
