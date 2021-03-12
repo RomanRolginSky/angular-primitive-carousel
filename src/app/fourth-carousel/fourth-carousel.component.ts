@@ -1,18 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-// import Swiper core and required modules
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Mousewheel,
-  SwiperOptions
-} from 'swiper/core';
-import { Observable, of } from 'rxjs';
+import SwiperCore, { A11y, Navigation, Scrollbar, SwiperOptions } from 'swiper/core';
 
 // install Swiper modules
-SwiperCore.use([Mousewheel, Navigation, Pagination, Scrollbar, A11y]);
+SwiperCore.use([Navigation, Scrollbar, A11y]);
 
 @Component({
   selector: 'app-fourth-carousel',

@@ -6,7 +6,9 @@ import { ThirdCarouselComponent } from './third-carousel.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ThirdCarouselComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild([{path: '', component: ThirdCarouselComponent}])
