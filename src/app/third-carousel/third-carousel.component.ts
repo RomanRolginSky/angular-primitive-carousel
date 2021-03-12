@@ -1,10 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
-// import { fromEvent } from 'rxjs';
-// import { throttleTime } from 'rxjs/operators';
-// import * as Glider from 'glider-js';
-// import * Glider from 'glider-js';
 
 type Gliderjs = typeof import('glider-js');
 
@@ -23,16 +19,13 @@ export class ThirdCarouselComponent implements AfterViewInit, OnDestroy {
   private glider!: any;
 
   ngAfterViewInit(): void {
-    from(import(/* webpackChunkName: 'glider-js' */ 'glider-js'))
+    from(import('glider-js'))
       .pipe(
         // @ts-ignore
         map(glider => glider.default))
       .subscribe((gliderInit) => {
         this.init(gliderInit);
       });
-    // import(/*webpack-chunk*/'glider-js').then(module => module.default).then(gliderInit => {
-    //   this.init(gliderInit);
-    // });
 
     // this.init(gliderInit);
     // fromEvent(this.carousel.nativeElement, 'scroll').pipe(
