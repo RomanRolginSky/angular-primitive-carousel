@@ -1,7 +1,7 @@
 ::ng-deep {
   @import '~swiper/swiper';
-  @import '~swiper/components/navigation/navigation.scss';
-  @import '~swiper/components/pagination/pagination.scss';
+  @import '~swiper/components/navigation/navigation';
+  @import '~swiper/components/pagination/pagination';
 }
 
 :host {

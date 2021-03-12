@@ -32,13 +32,6 @@
             ],
             "styles": [
               "src/styles.scss"
-            ],
-            "scripts": [
-              {
-                "input": "src/assets/glider.js",
-                "bundleName": "glider-bundle",
-                "inject": false
-              }
             ]
           },
           "configurations": {
