@@ -1,14 +1,14 @@
 <div class="container">
-  <swiper #swiper
-          (slideChange)="onSlideChange()"
-          (swiper)="onSwiper($event)"
-          [cssMode]="true"
-          [mousewheel]="true"
-          [navigation]="{ disabledClass: '-disabled', prevEl: '.prev-button-sw' , nextEl: '.next-button-sw' }"
-          [scrollbar]="{ draggable: true }"
-          [slidesPerGroup]="3"
-          [slidesPerView]="3.5"
-          [spaceBetween]="16"
+  <swiper
+    (slideChange)="onSlideChange()"
+    (swiper)="onSwiper($event)"
+    [cssMode]="true"
+    [mousewheel]="true"
+    [navigation]="{ disabledClass: '-disabled', prevEl: '.prev-button-sw' , nextEl: '.next-button-sw' }"
+    [scrollbar]="{ draggable: true }"
+    [slidesPerGroup]="3"
+    [slidesPerView]="3.5"
+    [spaceBetween]="16"
   >
     <ng-container *ngFor="let item of items">
       <div *swiperSlide class="item-sw"> {{ item.name }}</div>
