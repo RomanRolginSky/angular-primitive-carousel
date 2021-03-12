@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy } from "@angular/compiler/src/compiler_facade_interface";
+import { ChangeDetectionStrategy } from '@angular/compiler/src/compiler_facade_interface';
 import {
   AfterViewInit,
 ChangeDetectorRef,
@@ -6,21 +6,21 @@ ChangeDetectorRef,
   ElementRef,
   Input,
   ViewChild
-} from "@angular/core";
-import { fromEvent, of } from "rxjs";
-import { map, startWith, throttleTime } from "rxjs/operators";
+} from '@angular/core';
+import { fromEvent, of } from 'rxjs';
+import { map, startWith, throttleTime } from 'rxjs/operators';
 
 @Component({
-  selector: "app-carousel",
-  templateUrl: "./carousel.component.html",
-  styleUrls: ["./carousel.component.css"]
+  selector: 'app-carousel',
+  templateUrl: './carousel.component.html',
+  styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent implements AfterViewInit {
-  @ViewChild("scrollableBlock", { read: ElementRef, static: true })
-  private scrollableBlock: ElementRef;
+  @ViewChild('scrollableBlock', { read: ElementRef, static: true })
+  private scrollableBlock: ElementRef | undefined;
 
   @Input()
-  customScrollableBlock: HTMLElement;
+  customScrollableBlock: HTMLElement | undefined;
   @Input()
   scrollItemsCount: number | 'auto' = 'auto';
   @Input()
@@ -31,10 +31,11 @@ export class CarouselComponent implements AfterViewInit {
 
   private itemWidth: number | undefined;
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
+    if (!this.customScrollableBlock) {return;}
     this.availableToScroll = fromEvent(
       this.customScrollableBlock,
-      "scroll"
+      'scroll'
     ).pipe(
       throttleTime(100, undefined, { leading: true, trailing: true }),
       map(event => event.target as HTMLElement),
@@ -66,15 +67,16 @@ export class CarouselComponent implements AfterViewInit {
   private scroll(scrollDirection: 'left' | 'right'): void {
     if (this.itemWidth) {
       const element =
-        this.customScrollableBlock || this.scrollableBlock.nativeElement;
+        this.customScrollableBlock || this.scrollableBlock?.nativeElement;
         // TODO how to calc scroll width in auto mode
       const visibleItems = Math.floor(element.offsetWidth / this.itemWidth);
       const marginBetweenVisibleItems = (visibleItems * this.itemsMargin);
-      const scrollXDelta = (this.scrollItemsCount !== 'auto' ? this.scrollItemsCount : visibleItems) * this.itemWidth + marginBetweenVisibleItems;
+      const scrollXDelta = (this.scrollItemsCount !== 'auto' ? this.scrollItemsCount : visibleItems) * this.itemWidth +
+        marginBetweenVisibleItems;
       const scrollByX = (scrollDirection === 'left' ? -1 : 1) * scrollXDelta;
       try {
-        element.scrollBy({ left: scrollByX, behavior: "smooth" });
-      } catch (_e) {
+        element.scrollBy({ left: scrollByX, behavior: 'smooth' });
+      } catch (e) {
         element.scrollBy(scrollByX, 0);
       }
     }
