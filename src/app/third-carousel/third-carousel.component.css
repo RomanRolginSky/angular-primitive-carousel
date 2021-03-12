@@ -6,6 +6,7 @@
 
 .carousel {
   height: 200px;
+  overflow: hidden;
 }
 
 ::ng-deep .glider-track {

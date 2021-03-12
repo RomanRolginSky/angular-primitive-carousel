@@ -17,7 +17,7 @@ export class SecondCarouselComponent implements OnInit {
     this.carouselTileItems = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
     this.carouselTile = {
-      grid: {xs: 2, sm: 3, md: 3, lg: 5, xl: 5, all: 0},
+      grid: {xs: 2, sm: 3.5, md: 3.5, lg: 5, xl: 5, all: 0},
       slide: 2,
       speed: 400,
       animation: 'lazy',

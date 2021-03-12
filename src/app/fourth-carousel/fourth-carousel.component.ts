@@ -6,7 +6,8 @@ import SwiperCore, {
   Pagination,
   Scrollbar,
   A11y,
-  Mousewheel, SwiperOptions
+  Mousewheel,
+  SwiperOptions
 } from 'swiper/core';
 import { Observable, of } from 'rxjs';
 
