@@ -1,56 +1,57 @@
-import { Component, OnInit } from "@angular/core";
-import { NguCarouselConfig } from "@ngu/carousel";
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { NguCarousel, NguCarouselConfig, NguCarouselStore } from '@ngu/carousel';
 
 @Component({
-  selector: "app-second-carousel",
-  templateUrl: "./second-carousel.component.html",
-  styleUrls: ["./second-carousel.component.css"]
+  selector: 'app-second-carousel',
+  templateUrl: './second-carousel.component.html',
+  styleUrls: ['./second-carousel.component.scss']
 })
 export class SecondCarouselComponent implements OnInit {
-  imgags = [
-    "assets/bg.jpg",
-    "assets/car.png",
-    "assets/canberra.jpg",
-    "assets/holi.jpg"
-  ];
-  public carouselTileItems: Array<any> = [0, 1, 2, 3, 4, 5];
-  public carouselTiles = {
-    0: [],
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: []
-  };
-  public carouselTile: NguCarouselConfig = {
-    grid: { xs: 1, sm: 1, md: 3, lg: 3, xl: 3, all: 0 },
-    slide: 3,
-    speed: 250,
-    point: {
-      visible: true
-    },
-    load: 2,
-    velocity: 0,
-    touch: true,
-    easing: "cubic-bezier(0, 0, 0.2, 1)"
-  };
-  constructor() {}
+  public carouselTileItems: Array<any>;
+  public carouselTile: NguCarouselConfig;
+  @ViewChild('carousel', {static: true}) carousel!: NguCarousel<any>;
+  // @ts-ignore
+  private carouselToken: string;
 
-  ngOnInit() {
-    this.carouselTileItems.forEach(el => {
-      this.carouselTileLoad(el);
-    });
+  constructor() {
+    this.carouselTileItems = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+
+    this.carouselTile = {
+      grid: {xs: 2, sm: 3, md: 3, lg: 5, xl: 5, all: 0},
+      slide: 2,
+      speed: 400,
+      animation: 'lazy',
+      point: {
+        visible: true
+      },
+      load: 2,
+      touch: true,
+      easing: 'ease'
+    };
   }
 
-  public carouselTileLoad(j) {
-    // console.log(this.carouselTiles[j]);
-    const len = this.carouselTiles[j].length;
+  ngOnInit() {
+  }
+
+  initDataFn(key: NguCarouselStore) {
+    this.carouselToken = key.token;
+  }
+
+  resetFn() {
+    this.carousel.reset(false);
+  }
+
+  moveToSlide() {
+    this.carousel.moveTo(2, false);
+  }
+
+  public carouselTileLoad(evt: any) {
+    const len = this.carouselTileItems.length;
     if (len <= 30) {
-      for (let i = len; i < len + 15; i++) {
-        this.carouselTiles[j].push(
-          this.imgags[Math.floor(Math.random() * this.imgags.length)]
-        );
+      for (let i = len; i < len + 10; i++) {
+        this.carouselTileItems.push(i);
       }
     }
+
   }
 }
