@@ -1,6 +1,12 @@
+.active {
+  background-color: #e8e8e8;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
 nav {
   margin-bottom: 24px;
 }
 nav a {
-  margin: 0 16px;;
+  margin: 0 16px;
 }
